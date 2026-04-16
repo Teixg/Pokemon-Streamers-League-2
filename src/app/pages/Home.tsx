@@ -3,6 +3,13 @@ import { Users, Trophy, MapPin, Sparkles } from 'lucide-react';
 import { streamers } from '../data/streamers';
 import logo from '../../imports/Recurso_3.png';
 
+const HERO_SILHOUETTES = Array.from({ length: 8 }, () => ({
+  id: Math.floor(Math.random() * 151) + 1,
+  top: `${Math.floor(Math.random() * 75)}%`,
+  left: `${Math.floor(Math.random() * 85)}%`,
+  size: Math.floor(Math.random() * 56) + 56,
+}));
+
 export function Home() {
   const activeStreamers = streamers.filter(s => !s.isEliminated);
   const liveStreamers = streamers.filter(s => s.isLive && !s.isEliminated);
@@ -17,6 +24,27 @@ export function Home() {
           {/* Pokéball decoration */}
           <div className="absolute top-1/2 left-1/4 h-24 w-24 rounded-full border-4 border-white/20"></div>
           <div className="absolute bottom-1/4 right-1/3 h-16 w-16 rounded-full border-4 border-[#fbbf24]/20"></div>
+        </div>
+
+        {/* Kanto Pokémon silhouettes */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          {HERO_SILHOUETTES.map((s, i) => (
+            <img
+              key={i}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${s.id}.png`}
+              alt=""
+              width={s.size}
+              height={s.size}
+              style={{
+                position: 'absolute',
+                top: s.top,
+                left: s.left,
+                opacity: 0.04,
+                filter: 'brightness(0) invert(1)',
+                imageRendering: 'pixelated',
+              }}
+            />
+          ))}
         </div>
         
         <div className="relative mx-auto max-w-4xl text-center">
@@ -46,14 +74,26 @@ export function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/participantes"
-              className="rounded-xl bg-[#fbbf24] px-6 py-3 font-['Nunito'] font-semibold text-[#1e1b4b] transition-all hover:bg-[#f59e0b] hover:scale-105"
+              className="pokeball-btn flex items-center justify-center rounded-xl bg-[#fbbf24] px-6 py-3 font-['Nunito'] font-semibold text-[#1e1b4b] transition-all hover:bg-[#f59e0b] hover:scale-105"
             >
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                alt=""
+                className="pokeball-icon"
+                style={{ width: 20, height: 20, objectFit: 'contain' }}
+              />
               Ver participantes
             </Link>
             <Link
               to="/guia"
-              className="rounded-xl border-2 border-white/30 px-6 py-3 font-['Nunito'] font-semibold text-white transition-all hover:bg-white/10 hover:border-white/60 hover:scale-105"
+              className="guide-btn flex items-center justify-center rounded-xl border-2 border-white/30 px-6 py-3 font-['Nunito'] font-semibold text-white transition-all hover:bg-white/10 hover:border-white/60 hover:scale-105"
             >
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/town-map.png"
+                alt=""
+                className="item-icon"
+                style={{ width: 20, height: 20, objectFit: 'contain' }}
+              />
               Guía del juego
             </Link>
           </div>

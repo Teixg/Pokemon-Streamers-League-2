@@ -30,6 +30,49 @@ html {
   font-family: 'Nunito', sans-serif;
 }
 
+/* Town-map bounce animation for guide button */
+@keyframes item-bounce {
+  0%, 100% { transform: translateY(0); }
+  40%       { transform: translateY(-5px); }
+  70%       { transform: translateY(-2px); }
+}
+
+.item-icon {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: width 0.2s ease, opacity 0.2s ease, margin 0.2s ease;
+}
+
+.guide-btn:hover .item-icon {
+  width: 20px;
+  opacity: 1;
+  margin-right: 6px;
+  animation: item-bounce 0.7s ease infinite;
+}
+
+/* Pokéball spin animation */
+@keyframes pokeball-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.pokeball-icon {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: width 0.2s ease, opacity 0.2s ease, margin 0.2s ease;
+}
+
+.pokeball-btn:hover .pokeball-icon {
+  width: 20px;
+  opacity: 1;
+  margin-right: 6px;
+  animation: pokeball-spin 0.6s linear infinite;
+}
+
 /* Logo floating animation */
 @keyframes logo-float {
   0%   { transform: translateY(0px) rotate(-1deg) scale(1); }
