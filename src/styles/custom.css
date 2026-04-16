@@ -1,0 +1,48 @@
+/* Custom scrollbar styling */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar {
+  height: 6px;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom font families utility classes */
+.font-pixel {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.font-sans {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Logo floating animation */
+@keyframes logo-float {
+  0%   { transform: translateY(0px) rotate(-1deg) scale(1); }
+  30%  { transform: translateY(-10px) rotate(1.5deg) scale(1.03); }
+  60%  { transform: translateY(-5px) rotate(-0.5deg) scale(1.01); }
+  100% { transform: translateY(0px) rotate(-1deg) scale(1); }
+}
+
+@keyframes logo-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.5)) drop-shadow(0 0 24px rgba(244, 63, 94, 0.25)); }
+  50%       { filter: drop-shadow(0 0 22px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 40px rgba(244, 63, 94, 0.45)); }
+}
+
+.logo-animated {
+  animation: logo-float 3.5s ease-in-out infinite, logo-glow-pulse 3.5s ease-in-out infinite;
+}
