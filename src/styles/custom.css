@@ -89,3 +89,17 @@ html {
 .logo-animated {
   animation: logo-float 3.5s ease-in-out infinite, logo-glow-pulse 3.5s ease-in-out infinite;
 }
+
+/* Silhouette drift animation for hero background Pokémon */
+@keyframes silhouette-drift {
+  0%   { transform: translateY(0px) translateX(0px); }
+  25%  { transform: translateY(-8px) translateX(4px); }
+  50%  { transform: translateY(-14px) translateX(0px); }
+  75%  { transform: translateY(-8px) translateX(-4px); }
+  100% { transform: translateY(0px) translateX(0px); }
+}
+
+.silhouette-drift {
+  animation: silhouette-drift var(--drift-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--drift-delay, 0s);
+}

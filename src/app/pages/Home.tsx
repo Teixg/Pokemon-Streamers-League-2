@@ -8,6 +8,8 @@ const HERO_SILHOUETTES = Array.from({ length: 8 }, () => ({
   top: `${Math.floor(Math.random() * 75)}%`,
   left: `${Math.floor(Math.random() * 85)}%`,
   size: Math.floor(Math.random() * 56) + 56,
+  duration: `${(Math.random() * 4 + 5).toFixed(1)}s`,
+  delay: `${(Math.random() * 4).toFixed(1)}s`,
 }));
 
 export function Home() {
@@ -18,14 +20,6 @@ export function Home() {
     <div className="min-h-screen bg-[#1e1b4b]">
       {/* Hero Section */}
       <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-b from-[#1e1b4b] to-[#312e81] px-4 py-16 sm:py-24">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 h-32 w-32 rounded-full bg-[#fbbf24] blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 h-40 w-40 rounded-full bg-[#f43f5e] blur-3xl"></div>
-          {/* Pokéball decoration */}
-          <div className="absolute top-1/2 left-1/4 h-24 w-24 rounded-full border-4 border-white/20"></div>
-          <div className="absolute bottom-1/4 right-1/3 h-16 w-16 rounded-full border-4 border-[#fbbf24]/20"></div>
-        </div>
-
         {/* Kanto Pokémon silhouettes */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {HERO_SILHOUETTES.map((s, i) => (
@@ -35,6 +29,7 @@ export function Home() {
               alt=""
               width={s.size}
               height={s.size}
+              className="silhouette-drift"
               style={{
                 position: 'absolute',
                 top: s.top,
@@ -42,7 +37,9 @@ export function Home() {
                 opacity: 0.04,
                 filter: 'brightness(0) invert(1)',
                 imageRendering: 'pixelated',
-              }}
+                '--drift-duration': s.duration,
+                '--drift-delay': s.delay,
+              } as React.CSSProperties}
             />
           ))}
         </div>
@@ -105,7 +102,12 @@ export function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
-              <Users className="mx-auto mb-3 h-8 w-8 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"
+                alt=""
+                className="mx-auto mb-3"
+                style={{ width: 48, height: 48, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <div className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
                 {streamers.length}
               </div>
@@ -113,7 +115,12 @@ export function Home() {
             </div>
             
             <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
-              <Trophy className="mx-auto mb-3 h-8 w-8 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bicycle.png"
+                alt=""
+                className="mx-auto mb-3"
+                style={{ width: 48, height: 48, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <div className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
                 {activeStreamers.length}
               </div>
@@ -121,7 +128,12 @@ export function Home() {
             </div>
             
             <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
-              <MapPin className="mx-auto mb-3 h-8 w-8 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silph-scope.png"
+                alt=""
+                className="mx-auto mb-3"
+                style={{ width: 48, height: 48, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <div className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">8</div>
               <div className="font-['Nunito'] text-sm text-gray-400">Gimnasios</div>
             </div>

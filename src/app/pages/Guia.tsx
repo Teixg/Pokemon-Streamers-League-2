@@ -1,7 +1,5 @@
 import { PageHeader } from '../components/PageHeader';
-import { TypeBadge } from '../components/TypeBadge';
 import { gymLeaders } from '../data/gym-leaders';
-import { typeColors } from '../data/types';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Skull, Ban, Heart, Zap } from 'lucide-react';
 
@@ -86,43 +84,29 @@ export function Guia() {
           <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-white">
             Líderes de Gimnasio
           </h2>
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {gymLeaders.map((leader) => (
               <div
                 key={leader.number}
-                className="rounded-xl border border-white/10 bg-white/5 p-4 sm:p-5 transition-all hover:border-white/20"
+                className="rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:border-white/20 flex flex-col items-center text-center gap-3"
               >
-                <div className="flex items-center gap-4">
-                  {/* Number */}
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 font-['Press_Start_2P'] text-base text-[#fbbf24]">
-                    {leader.number}
-                  </div>
-
-                  {/* Leader sprite */}
-                  <div className="flex-shrink-0 flex items-center justify-center rounded-lg border border-white/10 bg-white/5" style={{ width: 64, height: 64 }}>
-                    <ImageWithFallback
-                      src={leader.trainerSpriteUrl}
-                      alt={leader.name}
-                      className="w-12 h-12 object-contain"
-                    />
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                      <h3 className="font-['Nunito'] font-bold text-base text-white">{leader.name}</h3>
-                      <TypeBadge type={leader.type} size="sm" />
-                    </div>
-                    <p className="font-['Nunito'] text-xs text-gray-400 mb-1">{leader.city}</p>
-                    <p className="font-['Nunito'] text-xs text-gray-300">
-                      Nivel máx.{' '}
-                      <span className="font-semibold text-[#fbbf24]">Nv. {leader.topLevel}</span>
-                    </p>
-                  </div>
+                {/* Number badge */}
+                <div className="self-start flex h-7 w-7 shrink-0 items-center justify-center rounded font-['Press_Start_2P'] text-xs text-[#fbbf24] bg-white/10">
+                  {leader.number}
                 </div>
 
-                <div className="mt-3 rounded-lg bg-[#fbbf24]/10 border border-[#fbbf24]/20 p-2.5">
-                  <p className="font-['Nunito'] text-sm text-[#fbbf24]">💡 {leader.tip}</p>
+                {/* Leader sprite */}
+                <ImageWithFallback
+                  src={leader.trainerSpriteUrl}
+                  alt={leader.name}
+                  className="w-20 h-20 object-contain"
+                />
+
+                {/* Info */}
+                <div className="w-full">
+                  <h3 className="font-['Nunito'] font-bold text-base text-white leading-tight mb-1.5">{leader.name}</h3>
+                  <p className="font-['Nunito'] text-sm text-gray-400 mb-0.5">{leader.city}</p>
+                  <p className="font-['Nunito'] text-sm text-[#fbbf24] font-semibold">Nv. {leader.topLevel}</p>
                 </div>
               </div>
             ))}
