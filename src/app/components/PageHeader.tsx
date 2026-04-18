@@ -2,9 +2,11 @@ interface PageHeaderProps {
   badge?: string;
   title: string;
   description?: string;
+  subtitle?: string;
 }
 
-export function PageHeader({ badge, title, description }: PageHeaderProps) {
+export function PageHeader({ badge, title, description, subtitle }: PageHeaderProps) {
+  const body = description ?? subtitle;
   return (
     <div className="mb-8 sm:mb-12">
       {badge && (
@@ -12,12 +14,12 @@ export function PageHeader({ badge, title, description }: PageHeaderProps) {
           {badge}
         </div>
       )}
-      <h1 className="font-['Press_Start_2P'] text-2xl sm:text-3xl lg:text-4xl leading-tight mb-4 text-white">
+      <h1 className="font-['Press_Start_2P'] text-2xl sm:text-3xl lg:text-4xl leading-tight mb-4 text-gradient">
         {title}
       </h1>
-      {description && (
+      {body && (
         <p className="font-['Nunito'] text-base sm:text-lg text-gray-300 max-w-3xl">
-          {description}
+          {body}
         </p>
       )}
     </div>

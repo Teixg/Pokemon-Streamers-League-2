@@ -2,6 +2,8 @@ import { PageHeader } from '../components/PageHeader';
 import { streamers } from '../data/streamers';
 import { typeColors } from '../data/types';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { FadeInSection } from '../components/FadeInSection';
+import { SkeletonImage } from '../components/SkeletonImage';
 
 // Kanto badges in gym order (PokeAPI sprite IDs 1-8)
 const KANTO_BADGES = [
@@ -44,7 +46,8 @@ function getInitials(name: string) {
 }
 
 export function Participantes() {
-  const activeStreamers = streamers.filter(s => !s.isEliminated);
+  const activeStreamers = [...streamers.filter(s => !s.isEliminated)]
+    .sort((a, b) => b.badges - a.badges);
   const eliminatedStreamers = streamers.filter(s => s.isEliminated);
 
   return (
@@ -57,29 +60,53 @@ export function Participantes() {
         />
 
         {/* Active Streamers */}
+        <FadeInSection>
         <div className="mb-16">
-          <h2 className="font-['Press_Start_2P'] text-xl mb-6 text-[#fbbf24]">
+          <h2 className="font-['Press_Start_2P'] text-xl mb-6 text-gradient">
             En carrera
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {activeStreamers.map((streamer) => {
+            {activeStreamers.map((streamer, index) => {
               const spriteUrl = getStarterSpriteUrl(streamer.starter, streamer.spriteUrl);
               const starterType = getStarterType(streamer.starter);
+              const twitchHandle = streamer.twitch.replace('@', '');
 
               return (
-                <div
+                <a
                   key={streamer.id}
-                  className="rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-[#fbbf24]/30 hover:bg-white/10"
+                  href={`https://twitch.tv/${twitchHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-[#fbbf24]/30 hover:bg-white/10 relative"
                 >
+                  {/* Rank position */}
+                  <div className="absolute top-3 right-3 font-['Press_Start_2P'] text-[10px] text-white/30">
+                    #{index + 1}
+                  </div>
+
                   {/* Header: avatar + info + sprite */}
                   <div className="flex items-start gap-3 mb-4">
+                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full overflow-hidden border border-white/20">
+                    <SkeletonImage
+                      src={`https://unavatar.io/twitch/${streamer.twitch.replace('@', '')}`}
+                      alt={streamer.name}
+                      className="h-14 w-14 rounded-full object-cover"
+                      skeletonClassName="rounded-full"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        target.style.display = 'none';
+                        const fallback = target.parentElement?.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
                     <div
-                      className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full font-['Press_Start_2P'] text-xs text-white"
+                      className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-full font-['Press_Start_2P'] text-xs text-white"
                       style={{ backgroundColor: typeColors[starterType] }}
                     >
                       {getInitials(streamer.name)}
                     </div>
+                  </div>
 
                     <div className="flex-1 min-w-0">
                       <h3 className="font-['Nunito'] font-bold text-base text-white mb-0.5 truncate">
@@ -102,10 +129,11 @@ export function Participantes() {
                         className="flex-shrink-0 flex items-center justify-center rounded-lg border border-white/10 bg-white/5"
                         style={{ width: 72, height: 72 }}
                       >
-                        <ImageWithFallback
+                        <SkeletonImage
                           src={spriteUrl}
                           alt={`Sprite de ${streamer.starter}`}
                           className="w-14 h-14 object-contain"
+                          style={{ imageRendering: 'pixelated' }}
                         />
                       </div>
                     )}
@@ -141,14 +169,16 @@ export function Participantes() {
                       })}
                     </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
         </div>
+        </FadeInSection>
 
         {/* Eliminated Streamers */}
         {eliminatedStreamers.length > 0 && (
+          <FadeInSection delay="0.1s">
           <div>
             <h2 className="font-['Press_Start_2P'] text-xl mb-6 text-gray-500">
               Eliminados
@@ -158,10 +188,15 @@ export function Participantes() {
                 const spriteUrl = getStarterSpriteUrl(streamer.starter, streamer.spriteUrl);
                 const starterType = getStarterType(streamer.starter);
 
-                return (
-                  <div
-                    key={streamer.id}
-                    className="rounded-xl border border-white/5 bg-white/5 p-6 opacity-50"
+                const twitchHandle = streamer.twitch.replace('@', '');
+
+              return (
+                <a
+                  key={streamer.id}
+                  href={`https://twitch.tv/${twitchHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-white/5 bg-white/5 p-6 opacity-50 hover:opacity-60 transition-all"
                   >
                     <div className="flex items-start gap-4 mb-5">
                       <div
@@ -225,11 +260,12 @@ export function Participantes() {
                         })}
                       </div>
                     </div>
-                  </div>
+                  </a>
                 );
               })}
             </div>
           </div>
+          </FadeInSection>
         )}
       </div>
     </div>

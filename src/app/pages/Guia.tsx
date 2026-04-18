@@ -1,6 +1,7 @@
 import { PageHeader } from '../components/PageHeader';
 import { gymLeaders } from '../data/gym-leaders';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { FadeInSection } from '../components/FadeInSection';
 import { Skull, Ban, Heart, Zap } from 'lucide-react';
 
 export function Guia() {
@@ -41,8 +42,9 @@ export function Guia() {
         />
 
         {/* What is this game */}
+        <FadeInSection>
         <section className="mb-16">
-          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-white">
+          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-gradient">
             ¿Qué es este juego?
           </h2>
           <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-8">
@@ -55,10 +57,12 @@ export function Guia() {
             </p>
           </div>
         </section>
+        </FadeInSection>
 
         {/* Nuzlocke Rules */}
+        <FadeInSection delay="0.1s">
         <section className="mb-16">
-          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-white">
+          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-gradient">
             Reglas Nuzlocke
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -78,10 +82,12 @@ export function Guia() {
             ))}
           </div>
         </section>
+        </FadeInSection>
 
         {/* Gym Leaders */}
+        <FadeInSection delay="0.15s">
         <section>
-          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-white">
+          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-gradient">
             Líderes de Gimnasio
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -90,8 +96,11 @@ export function Guia() {
                 key={leader.number}
                 className="rounded-xl border border-white/10 bg-white/5 p-5 transition-all hover:border-white/20 flex flex-col items-center text-center gap-3"
               >
-                {/* Number badge */}
-                <div className="self-start flex h-7 w-7 shrink-0 items-center justify-center rounded font-['Press_Start_2P'] text-xs text-[#fbbf24] bg-white/10">
+                {/* Number badge - medal style */}
+                <div
+                  className="self-start flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-['Press_Start_2P'] text-xs text-[#fbbf24] border-2 border-[#fbbf24]"
+                  style={{ boxShadow: '0 0 8px rgba(251,191,36,0.5), 0 0 2px rgba(251,191,36,0.8) inset' }}
+                >
                   {leader.number}
                 </div>
 
@@ -112,6 +121,7 @@ export function Guia() {
             ))}
           </div>
         </section>
+        </FadeInSection>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
-import { Users, Trophy, MapPin, Sparkles } from 'lucide-react';
 import { streamers } from '../data/streamers';
+import { FadeInSection } from '../components/FadeInSection';
+import { useCountUp } from '../hooks/useCountUp';
 import logo from '../../imports/Recurso_3.png';
 
 const HERO_SILHOUETTES = Array.from({ length: 8 }, () => ({
@@ -15,6 +16,10 @@ const HERO_SILHOUETTES = Array.from({ length: 8 }, () => ({
 export function Home() {
   const activeStreamers = streamers.filter(s => !s.isEliminated);
   const liveStreamers = streamers.filter(s => s.isLive && !s.isEliminated);
+
+  const totalCounter  = useCountUp(streamers.length);
+  const activeCounter = useCountUp(activeStreamers.length);
+  const gymCounter    = useCountUp(8);
 
   return (
     <div className="min-h-screen bg-[#1e1b4b]">
@@ -51,7 +56,7 @@ export function Home() {
               alt="PSL2 Logo"
               className="h-28 sm:h-36 md:h-44 w-auto logo-animated flex-shrink-0"
             />
-            <h1 className="font-['Press_Start_2P'] text-3xl sm:text-4xl lg:text-5xl leading-tight text-white text-center md:text-left">
+            <h1 className="font-['Press_Start_2P'] text-3xl sm:text-4xl lg:text-5xl leading-tight text-center md:text-left text-gradient">
               POKÉMON
               <br />
               STREAMERS
@@ -98,6 +103,7 @@ export function Home() {
       </section>
 
       {/* Stats Section */}
+      <FadeInSection>
       <section className="border-b border-white/10 px-4 py-12">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -108,8 +114,8 @@ export function Home() {
                 className="mx-auto mb-3"
                 style={{ width: 48, height: 48, objectFit: 'contain', imageRendering: 'pixelated' }}
               />
-              <div className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
-                {streamers.length}
+              <div ref={totalCounter.ref} className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
+                {totalCounter.count}
               </div>
               <div className="font-['Nunito'] text-sm text-gray-400">Participantes</div>
             </div>
@@ -121,8 +127,8 @@ export function Home() {
                 className="mx-auto mb-3"
                 style={{ width: 48, height: 48, objectFit: 'contain', imageRendering: 'pixelated' }}
               />
-              <div className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
-                {activeStreamers.length}
+              <div ref={activeCounter.ref} className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
+                {activeCounter.count}
               </div>
               <div className="font-['Nunito'] text-sm text-gray-400">En carrera</div>
             </div>
@@ -134,44 +140,66 @@ export function Home() {
                 className="mx-auto mb-3"
                 style={{ width: 48, height: 48, objectFit: 'contain', imageRendering: 'pixelated' }}
               />
-              <div className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">8</div>
+              <div ref={gymCounter.ref} className="font-['Press_Start_2P'] text-2xl sm:text-3xl text-white mb-2">
+                {gymCounter.count}
+              </div>
               <div className="font-['Nunito'] text-sm text-gray-400">Gimnasios</div>
             </div>
           </div>
         </div>
       </section>
+      </FadeInSection>
 
       {/* Live Streamers Bar */}
+      <FadeInSection delay="0.1s">
       <section className="border-b border-white/10 px-4 py-6 bg-white/5">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-3 flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-[#f43f5e] animate-pulse"></div>
-            <span className="font-['Nunito'] text-sm text-gray-300">En vivo ahora</span>
-          </div>
-          
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/20">
-            {liveStreamers.map((streamer) => (
-              <div
-                key={streamer.id}
-                className="flex items-center gap-2 rounded-full border border-[#f43f5e]/30 bg-[#f43f5e]/10 px-4 py-2 whitespace-nowrap"
-              >
-                <div className="h-2 w-2 rounded-full bg-[#f43f5e]"></div>
-                <span className="font-['Nunito'] text-sm text-white">{streamer.name}</span>
+          {liveStreamers.length > 0 ? (
+            <>
+              <div className="mb-3 flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-[#f43f5e] animate-pulse"></div>
+                <span className="font-['Nunito'] text-sm text-gray-300">En vivo ahora</span>
               </div>
-            ))}
-          </div>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/20">
+                {liveStreamers.map((streamer) => (
+                  <a
+                    key={streamer.id}
+                    href={`https://twitch.tv/${streamer.twitch.replace('@', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-full border border-[#f43f5e]/30 bg-[#f43f5e]/10 px-4 py-2 whitespace-nowrap hover:bg-[#f43f5e]/20 transition-colors"
+                  >
+                    <div className="h-2 w-2 rounded-full bg-[#f43f5e]"></div>
+                    <span className="font-['Nunito'] text-sm text-white">{streamer.name}</span>
+                  </a>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-gray-600"></div>
+              <span className="font-['Nunito'] text-sm text-gray-500">Nadie en directo ahora mismo</span>
+            </div>
+          )}
         </div>
       </section>
+      </FadeInSection>
 
       {/* Section Cards Grid */}
+      <FadeInSection delay="0.15s">
       <section className="px-4 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Link
-              to="/"
+              to="/evento"
               className="group rounded-xl border border-white/10 bg-white/5 p-8 transition-all hover:border-[#fbbf24]/50 hover:bg-white/10"
             >
-              <Sparkles className="mb-4 h-10 w-10 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/old-amber.png"
+                alt=""
+                className="mb-4"
+                style={{ width: 40, height: 40, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <h2 className="font-['Press_Start_2P'] text-xl mb-3 text-white">
                 Evento
               </h2>
@@ -184,7 +212,12 @@ export function Home() {
               to="/participantes"
             className="group rounded-xl border border-white/10 bg-white/5 p-8 transition-all hover:border-[#fbbf24]/50 hover:bg-white/10"
             >
-              <Users className="mb-4 h-10 w-10 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png"
+                alt=""
+                className="mb-4"
+                style={{ width: 40, height: 40, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <h2 className="font-['Press_Start_2P'] text-xl mb-3 text-white">
                 Participantes
               </h2>
@@ -197,7 +230,12 @@ export function Home() {
               to="/guia"
               className="group rounded-xl border border-white/10 bg-white/5 p-8 transition-all hover:border-[#fbbf24]/50 hover:bg-white/10"
             >
-              <MapPin className="mb-4 h-10 w-10 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/town-map.png"
+                alt=""
+                className="mb-4"
+                style={{ width: 40, height: 40, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <h2 className="font-['Press_Start_2P'] text-xl mb-3 text-white">
                 Guía
               </h2>
@@ -210,7 +248,12 @@ export function Home() {
               to="/utilidades"
             className="group rounded-xl border border-white/10 bg-white/5 p-8 transition-all hover:border-[#fbbf24]/50 hover:bg-white/10"
             >
-              <Trophy className="mb-4 h-10 w-10 text-[#fbbf24]" />
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-rod.png"
+                alt=""
+                className="mb-4"
+                style={{ width: 40, height: 40, objectFit: 'contain', imageRendering: 'pixelated' }}
+              />
               <h2 className="font-['Press_Start_2P'] text-xl mb-3 text-white">
                 Utilidades
               </h2>
@@ -221,6 +264,7 @@ export function Home() {
           </div>
         </div>
       </section>
+      </FadeInSection>
     </div>
   );
 }
