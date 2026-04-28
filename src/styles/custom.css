@@ -136,3 +136,9 @@ html {
   animation: shimmer 1.6s infinite linear;
   border-radius: 0.5rem;
 }
+
+/* Image rendering utility */
+.pixelated {
+  image-rendering: pixelated;
+}
+

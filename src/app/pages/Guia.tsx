@@ -52,9 +52,40 @@ export function Guia() {
               <span className="text-[#fbbf24] font-semibold">Pokémon Añil Definitive Edition</span> es un
               ROMhack mejorado de Pokémon Azul/Rojo que incluye Pokémon de generaciones posteriores, 
               mecánicas actualizadas, y mayor dificultad. Los participantes juegan bajo{' '}
-              <span className="text-[#f43f5e] font-semibold">reglas Nuzlocke</span>, convirtiendo 
-              cada batalla en una decisión de vida o muerte.
+              <span className="text-[#f43f5e] font-semibold">reglas Nuzlocke</span> y con un{' '}
+              <span className="text-[#7c3aed] font-semibold">aleatorizador (Randomlocke)</span>, convirtiendo 
+              cada partida en una aventura única e irrepetible.
             </p>
+          </div>
+        </section>
+        </FadeInSection>
+
+        {/* What is Randomlocke */}
+        <FadeInSection delay="0.05s">
+        <section className="mb-16">
+          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-6 text-gradient">
+            ¿Qué es un Randomlocke?
+          </h2>
+          <div className="rounded-xl border border-[#7c3aed]/20 bg-[#7c3aed]/5 p-6 sm:p-8 mb-4">
+            <p className="font-['Nunito'] text-base text-gray-300 leading-relaxed mb-4">
+              Un <span className="text-[#a78bfa] font-semibold">Randomlocke</span> combina las reglas Nuzlocke con un <span className="text-white">aleatorizador</span> que mezcla todos los encuentros del juego. Cada ruta puede tener cualquier Pokémon de cualquier generación, los entrenadores tienen equipos completamente distintos, y el Pokémon inicial es una sorpresa.
+            </p>
+            <p className="font-['Nunito'] text-sm text-gray-400 leading-relaxed">
+              Esto significa que cada streamer está viviendo una historia completamente diferente: sus Pokémon disponibles, sus enemigos y sus retos son únicos para su partida.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { emoji: '🎲', title: 'Encuentros', desc: 'Pokémon aleatorio en cada ruta, cueva y masa de agua' },
+              { emoji: '⚔️', title: 'Entrenadores', desc: 'Todos los equipos enemigos, incluyendo líderes y élite, son aleatorios' },
+              { emoji: '🏁', title: 'Inicial', desc: 'El primer Pokémon de cada streamer fue elegido al azar' },
+            ].map((item) => (
+              <div key={item.title} className="rounded-xl border border-[#7c3aed]/20 bg-white/5 p-4 text-center">
+                <div className="text-3xl mb-2">{item.emoji}</div>
+                <div className="font-['Nunito'] font-bold text-white text-sm mb-1">{item.title}</div>
+                <div className="font-['Nunito'] text-xs text-gray-400">{item.desc}</div>
+              </div>
+            ))}
           </div>
         </section>
         </FadeInSection>

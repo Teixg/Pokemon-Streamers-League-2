@@ -5,6 +5,8 @@ import { Evento } from './pages/Evento';
 import { Participantes } from './pages/Participantes';
 import { Guia } from './pages/Guia';
 import { Utilidades } from './pages/Utilidades';
+import { Cementerio } from './pages/Cementerio';
+
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ export const router = createBrowserRouter([
       { path: 'participantes', Component: Participantes },
       { path: 'guia', Component: Guia },
       { path: 'utilidades', Component: Utilidades },
+      { path: 'cementerio', Component: Cementerio },
+
     ],
   },
 ]);

@@ -1,5 +1,5 @@
 import { typeColors } from '../data/types';
-
+import { getTypeSpriteUrl } from '../config/api';
 const TYPE_IDS: Record<string, number> = {
   normal: 1, fighting: 2, flying: 3, poison: 4, ground: 5,
   rock: 6, bug: 7, ghost: 8, steel: 9, fire: 10, water: 11,
@@ -7,7 +7,6 @@ const TYPE_IDS: Record<string, number> = {
   dark: 17, fairy: 18,
 };
 
-const TYPE_SPRITE_BASE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/sword-shield';
 
 interface TypeBadgeProps {
   type: string;
@@ -31,11 +30,11 @@ export function TypeBadge({ type, size = 'md' }: TypeBadgeProps) {
     >
       {typeId && (
         <img
-          src={`${TYPE_SPRITE_BASE}/small/${typeId}.png`}
+          src={getTypeSpriteUrl(typeId)}
           alt=""
           width={iconSize}
           height={iconSize}
-          style={{ objectFit: 'contain', flexShrink: 0 }}
+          className="object-contain shrink-0"
         />
       )}
       {type}

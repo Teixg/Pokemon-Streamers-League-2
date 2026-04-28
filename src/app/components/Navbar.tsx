@@ -11,8 +11,10 @@ export function Navbar() {
     { to: '/', label: 'Inicio' },
     { to: '/evento', label: 'Evento' },
     { to: '/participantes', label: 'Participantes' },
+
     { to: '/guia', label: 'Guía' },
     { to: '/utilidades', label: 'Utilidades' },
+    { to: '/cementerio', label: '☠ Cementerio' },
   ];
 
   return (

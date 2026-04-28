@@ -3,6 +3,7 @@ import { PageHeader } from '../components/PageHeader';
 import { FadeInSection } from '../components/FadeInSection';
 import { streamers, starters } from '../data/streamers';
 import { TypeBadge } from '../components/TypeBadge';
+import { PokemonSprite } from '../components/sprites/PokemonSprite';
 import { Skull, Trophy, Flame, Swords, AlertTriangle, CheckCircle } from 'lucide-react';
 
 const FORMAT_RULES = [
@@ -39,6 +40,13 @@ const NUZLOCKE_RULES = [
   { ok: false, text: 'Modo Hardcore: prohibido usar los Centros Pokémon, solo objetos curativos' },
   { ok: true,  text: 'Se permiten objetos en combate' },
   { ok: true,  text: 'Se permite huir de encuentros salvajes' },
+];
+
+const RANDOMLOCKE_RULES = [
+  { emoji: '🎲', title: 'Encuentros aleatorios', desc: 'Cualquier Pokémon del juego puede aparecer en cualquier ruta. Un Dragonite en la Ruta 1 es posible... o un Magikarp en el Camino Victoria.' },
+  { emoji: '🏁', title: 'Inicial aleatorizado', desc: 'El Pokémon inicial de cada streamer fue elegido al azar. No es necesariamente de Kanto ni de la primera generación.' },
+  { emoji: '👥', title: 'Equipos de entrenadores aleatorizados', desc: 'Los Pokémon de todos los entrenadores del juego, incluidos líderes de gimnasio y el Campeón, han sido aleatorizados.' },
+  { emoji: '📊', title: 'Estadísticas bases iguales', desc: 'Para que sea justo, el aleatorizador mantiene el mismo "nivel de poder" por grupo evolutivo. No aparecen Pokémon imposibles de derrotar.' },
 ];
 
 const STARTER_SPRITES: Record<string, number> = { Charmander: 4, Squirtle: 7, Bulbasaur: 1 };
@@ -127,6 +135,29 @@ export function Evento() {
         </section>
         </FadeInSection>
 
+        {/* Randomlocke rules */}
+        <FadeInSection delay="0.12s">
+        <section className="mb-16">
+          <h2 className="font-['Press_Start_2P'] text-xl sm:text-2xl mb-2 text-gradient">
+            El Randomlocke
+          </h2>
+          <p className="font-['Nunito'] text-sm text-gray-400 mb-6">
+            Además de las reglas Nuzlocke, <span className="text-[#fbbf24] font-semibold">todo el juego está aleatorizad</span>: encuentros, equipos de entrenadores, y el propio Pokémon inicial. Esto convierte cada partida en una aventura completamente distinta.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {RANDOMLOCKE_RULES.map((r) => (
+              <div key={r.title} className="rounded-xl border border-[#7c3aed]/30 bg-[#7c3aed]/5 p-5 flex gap-4">
+                <span className="text-2xl shrink-0 mt-0.5">{r.emoji}</span>
+                <div>
+                  <h3 className="font-['Nunito'] font-bold text-white mb-1">{r.title}</h3>
+                  <p className="font-['Nunito'] text-sm text-gray-400 leading-relaxed">{r.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+        </FadeInSection>
+
         {/* Starters */}
         <FadeInSection delay="0.15s">
         <section className="mb-16">
@@ -142,11 +173,10 @@ export function Evento() {
                   key={starter.name}
                   className="rounded-xl border border-white/10 bg-white/5 p-6 flex flex-col items-center text-center gap-3 hover:border-white/20 transition-all"
                 >
-                  <img
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${spriteId}.png`}
+                  <PokemonSprite
+                    id={spriteId}
                     alt={starter.name}
-                    className="w-20 h-20 object-contain"
-                    style={{ imageRendering: 'pixelated' }}
+                    className="w-20 h-20 object-contain pixelated"
                   />
                   <div>
                     <h3 className="font-['Nunito'] font-bold text-white text-lg mb-1">{starter.name}</h3>
