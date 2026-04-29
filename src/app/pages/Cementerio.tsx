@@ -1,30 +1,31 @@
 import { PageHeader } from '../components/PageHeader';
-import { streamers, getTotalDeaths } from '../data/streamers';
 import { typeColors } from '../data/types';
 import { FadeInSection } from '../components/FadeInSection';
 import { Skull, TrendingDown } from 'lucide-react';
 import { SkeletonImage } from '../components/SkeletonImage';
 import { PokemonSprite } from '../components/sprites/PokemonSprite';
+import { useStreamers } from '../hooks/useStreamers';
 
 function getInitials(name: string) {
   return name.slice(0, 2).toUpperCase();
 }
 
-/** Streamer con al menos una muerte */
-const streamerWithDeaths = streamers
-  .filter((s) => (s.deaths?.length ?? 0) > 0)
-  .sort((a, b) => (b.deaths?.length ?? 0) - (a.deaths?.length ?? 0));
-
-const totalDeaths = getTotalDeaths();
-
-/** Color de tipo para el streamer (basado en su inicial) */
-const STARTER_COLORS: Record<string, string> = {
-  Charmander: typeColors['fire'],
-  Squirtle: typeColors['water'],
-  Bulbasaur: typeColors['grass'],
-};
-
 export function Cementerio() {
+  const { streamers } = useStreamers();
+
+  const streamerWithDeaths = [...streamers]
+    .filter((s) => (s.deaths?.length ?? 0) > 0)
+    .sort((a, b) => (b.deaths?.length ?? 0) - (a.deaths?.length ?? 0));
+
+  const totalDeaths = streamers.reduce((acc, s) => acc + (s.deaths?.length ?? 0), 0);
+
+  /** Color de tipo para el streamer (basado en su inicial) */
+  const STARTER_COLORS: Record<string, string> = {
+    Charmander: typeColors['fire'],
+    Squirtle: typeColors['water'],
+    Bulbasaur: typeColors['grass'],
+  };
+
   return (
     <div className="min-h-screen bg-[#1e1b4b] px-4 py-12">
       <div className="mx-auto max-w-7xl">

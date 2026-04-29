@@ -1,10 +1,11 @@
 import { Link } from 'react-router';
 import { PageHeader } from '../components/PageHeader';
 import { FadeInSection } from '../components/FadeInSection';
-import { streamers, starters } from '../data/streamers';
+import { starters } from '../data/streamers';
 import { TypeBadge } from '../components/TypeBadge';
 import { PokemonSprite } from '../components/sprites/PokemonSprite';
 import { Skull, Trophy, Flame, Swords, AlertTriangle, CheckCircle } from 'lucide-react';
+import { useStreamers } from '../hooks/useStreamers';
 
 const FORMAT_RULES = [
   {
@@ -52,6 +53,7 @@ const RANDOMLOCKE_RULES = [
 const STARTER_SPRITES: Record<string, number> = { Charmander: 4, Squirtle: 7, Bulbasaur: 1 };
 
 export function Evento() {
+  const { streamers } = useStreamers();
   const activeCount   = streamers.filter(s => !s.isEliminated).length;
   const eliminatedCount = streamers.filter(s => s.isEliminated).length;
   const leader = [...streamers].filter(s => !s.isEliminated).sort((a, b) => b.badges - a.badges)[0];

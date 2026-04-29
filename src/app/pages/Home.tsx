@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
-import { streamers } from '../data/streamers';
 import { FadeInSection } from '../components/FadeInSection';
 import { useCountUp } from '../hooks/useCountUp';
+import { useStreamers } from '../hooks/useStreamers';
 import logo from '../../imports/Recurso_3.png';
 import { ItemSprite } from '../components/sprites/ItemSprite';
 import { getPokemonSpriteUrl } from '../config/api';
@@ -20,6 +20,7 @@ const HERO_SILHOUETTES = Array.from({ length: 8 }, () => ({
 
 
 export function Home() {
+  const { streamers } = useStreamers();
   const activeStreamers = streamers.filter(s => !s.isEliminated);
   const liveStreamers = streamers.filter(s => s.isLive && !s.isEliminated);
 

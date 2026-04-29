@@ -1,10 +1,9 @@
 import { PageHeader } from '../components/PageHeader';
-import { streamers } from '../data/streamers';
 import { typeColors } from '../data/types';
 import { SmartImage } from '../components/SmartImage';
 import { FadeInSection } from '../components/FadeInSection';
-
 import { getPokemonSpriteUrl, getBadgeSpriteUrl } from '../config/api';
+import { useStreamers } from '../hooks/useStreamers';
 
 const KANTO_BADGES = [
   { id: 1, name: 'Medalla Roca' },
@@ -41,6 +40,7 @@ function getInitials(name: string) {
 }
 
 export function Participantes() {
+  const { streamers } = useStreamers();
   const activeStreamers = [...streamers.filter(s => !s.isEliminated)]
     .sort((a, b) => b.badges - a.badges);
   const eliminatedStreamers = streamers.filter(s => s.isEliminated);

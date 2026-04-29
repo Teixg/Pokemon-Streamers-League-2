@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "vercel:dev": "cross-env NODE_OPTIONS=--dns-result-order=ipv4first vercel dev"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "1.2.3",
@@ -60,6 +61,7 @@
     "@types/react-dom": "^19.2.3",
     "@vercel/node": "^5.7.13",
     "@vitejs/plugin-react": "4.7.0",
+    "cross-env": "^10.1.0",
     "tailwindcss": "4.1.12",
     "typescript": "^6.0.3",
     "vite": "6.3.5"
