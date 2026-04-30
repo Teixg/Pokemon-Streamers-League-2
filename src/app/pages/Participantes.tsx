@@ -67,7 +67,7 @@ export function Participantes() {
     <div className="min-h-screen bg-[#1e1b4b] px-4 py-12">
       <div className="mx-auto max-w-7xl">
         <PageHeader
-          badge="PSL2"
+          badge="PSL2 · Temporada 2"
           title="Participantes"
           description="Streamers de habla hispana compitiendo en Pokémon Añil bajo reglas Nuzlocke"
         />

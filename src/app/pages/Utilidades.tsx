@@ -59,7 +59,7 @@ export function Utilidades() {
     <div className="min-h-screen bg-[#1e1b4b] px-4 py-12">
       <div className="mx-auto max-w-7xl">
         <PageHeader
-          badge="Herramientas y recursos"
+          badge="PSL2 · Temporada 2"
           title="UTILIDADES"
           subtitle="Calculadora de tipos, tabla de efectividad y enlaces útiles"
         />

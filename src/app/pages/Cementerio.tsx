@@ -48,7 +48,7 @@ export function Cementerio() {
     <div className="min-h-screen bg-[#1e1b4b] px-4 py-12">
       <div className="mx-auto max-w-7xl">
         <PageHeader
-          badge="En memoria de los caídos"
+          badge="PSL2 · Temporada 2"
           title="CEMENTERIO"
           subtitle="Todos los Pokémon que perdieron la vida en el camino. Sus nombres no serán olvidados."
         />
