@@ -20,13 +20,32 @@ const HERO_SILHOUETTES = Array.from({ length: 8 }, () => ({
 
 
 export function Home() {
-  const { streamers } = useStreamers();
+  const { streamers, loading, error } = useStreamers();
   const activeStreamers = streamers.filter(s => !s.isEliminated);
   const liveStreamers = streamers.filter(s => s.isLive && !s.isEliminated);
 
+  // Los hooks deben estar antes de cualquier return condicional
   const totalCounter  = useCountUp(streamers.length);
   const activeCounter = useCountUp(activeStreamers.length);
   const gymCounter    = useCountUp(8);
+
+  if (loading) return (
+    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
+      <div className="text-center space-y-4">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#fbbf24] border-t-transparent" />
+        <p className="font-['Nunito'] text-gray-400 text-sm">Cargando datos del torneo…</p>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
+      <div className="text-center space-y-2 p-6">
+        <p className="font-['Press_Start_2P'] text-[#f43f5e] text-sm">Error al cargar</p>
+        <p className="font-['Nunito'] text-gray-400 text-sm">{error}</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#1e1b4b]">

@@ -40,10 +40,28 @@ function getInitials(name: string) {
 }
 
 export function Participantes() {
-  const { streamers } = useStreamers();
+  const { streamers, loading, error } = useStreamers();
   const activeStreamers = [...streamers.filter(s => !s.isEliminated)]
     .sort((a, b) => b.badges - a.badges);
   const eliminatedStreamers = streamers.filter(s => s.isEliminated);
+
+  if (loading) return (
+    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
+      <div className="text-center space-y-4">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#fbbf24] border-t-transparent" />
+        <p className="font-['Nunito'] text-gray-400 text-sm">Cargando participantes…</p>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
+      <div className="text-center space-y-2 p-6">
+        <p className="font-['Press_Start_2P'] text-[#f43f5e] text-sm">Error al cargar</p>
+        <p className="font-['Nunito'] text-gray-400 text-sm">{error}</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#1e1b4b] px-4 py-12">

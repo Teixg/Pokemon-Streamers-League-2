@@ -11,7 +11,25 @@ function getInitials(name: string) {
 }
 
 export function Cementerio() {
-  const { streamers } = useStreamers();
+  const { streamers, loading, error } = useStreamers();
+
+  if (loading) return (
+    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
+      <div className="text-center space-y-4">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#fbbf24] border-t-transparent" />
+        <p className="font-['Nunito'] text-gray-400 text-sm">Cargando cementerio…</p>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
+      <div className="text-center space-y-2 p-6">
+        <p className="font-['Press_Start_2P'] text-[#f43f5e] text-sm">Error al cargar</p>
+        <p className="font-['Nunito'] text-gray-400 text-sm">{error}</p>
+      </div>
+    </div>
+  );
 
   const streamerWithDeaths = [...streamers]
     .filter((s) => (s.deaths?.length ?? 0) > 0)
