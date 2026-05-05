@@ -5,6 +5,7 @@ import { useStreamers } from '../hooks/useStreamers';
 import logo from '../../imports/Recurso_3.png';
 import { ItemSprite } from '../components/sprites/ItemSprite';
 import { getPokemonSpriteUrl } from '../config/api';
+import { LoadingScreen } from '../components/LoadingScreen';
 
 // FIX: Constante fuera del componente — antes estaba dentro con Math.random()
 // lo que causaba nuevos valores en cada render.
@@ -29,14 +30,7 @@ export function Home() {
   const activeCounter = useCountUp(activeStreamers.length);
   const gymCounter    = useCountUp(8);
 
-  if (loading) return (
-    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#fbbf24] border-t-transparent" />
-        <p className="font-['Nunito'] text-gray-400 text-sm">Cargando datos del torneo…</p>
-      </div>
-    </div>
-  );
+  if (loading) return <LoadingScreen message="Cargando datos del torneo…" />;
 
   if (error) return (
     <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">

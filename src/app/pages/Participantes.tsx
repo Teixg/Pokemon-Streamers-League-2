@@ -4,6 +4,7 @@ import { SmartImage } from '../components/SmartImage';
 import { FadeInSection } from '../components/FadeInSection';
 import { getPokemonSpriteUrl, getBadgeSpriteUrl } from '../config/api';
 import { useStreamers } from '../hooks/useStreamers';
+import { LoadingScreen } from '../components/LoadingScreen';
 
 const KANTO_BADGES = [
   { id: 1, name: 'Medalla Roca' },
@@ -45,14 +46,7 @@ export function Participantes() {
     .sort((a, b) => b.badges - a.badges);
   const eliminatedStreamers = streamers.filter(s => s.isEliminated);
 
-  if (loading) return (
-    <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#fbbf24] border-t-transparent" />
-        <p className="font-['Nunito'] text-gray-400 text-sm">Cargando participantes…</p>
-      </div>
-    </div>
-  );
+  if (loading) return <LoadingScreen message="Cargando participantes…" />;
 
   if (error) return (
     <div className="min-h-screen bg-[#1e1b4b] flex items-center justify-center">
@@ -165,7 +159,7 @@ export function Participantes() {
                       <div className="font-['Nunito'] text-xs text-gray-500 mb-2">
                         Medallas: {streamer.badges}/8
                       </div>
-                      <div className="flex gap-2 flex-wrap" role="list" aria-label={`${streamer.badges} de 8 medallas conseguidas`}>
+                      <div className="flex gap-1.5 flex-wrap" role="list" aria-label={`${streamer.badges} de 8 medallas conseguidas`}>
                         {KANTO_BADGES.map((badge, i) => {
                           const earned = i < streamer.badges;
                           return (
@@ -174,7 +168,7 @@ export function Participantes() {
                                 src={getBadgeSpriteUrl(badge.id)}
                                 alt={earned ? badge.name : ''}
                                 aria-hidden={!earned}
-                                className="w-8 h-8 object-contain transition-all duration-300"
+                                className="w-6 h-6 object-contain transition-all duration-300"
                                 style={{
                                   filter: earned ? 'none' : 'grayscale(100%) brightness(0.4)',
                                   opacity: earned ? 1 : 0.5,
@@ -185,6 +179,31 @@ export function Participantes() {
                         })}
                       </div>
                     </div>
+
+                    {/* Equipo actual */}
+                    {streamer.team && streamer.team.length > 0 && (
+                      <div className="mt-4 pt-4 border-t border-white/5">
+                        <div className="font-['Nunito'] text-xs text-gray-500 mb-2">
+                          Equipo ({streamer.team.length}/6)
+                        </div>
+                        <div className="flex gap-1.5 flex-wrap">
+                          {streamer.team.map((pokemon, i) => (
+                            <div
+                              key={i}
+                              title={`${pokemon.nickname} · ${pokemon.name} Nv.${pokemon.level}`}
+                              className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 hover:border-[#fbbf24]/30 hover:bg-white/10 transition-all"
+                              style={{ width: 56, height: 56 }}
+                            >
+                              <img
+                                src={getPokemonSpriteUrl(pokemon.spriteId)}
+                                alt={pokemon.name}
+                                className="w-12 h-12 object-contain pixelated"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </a>
                 );
               })}

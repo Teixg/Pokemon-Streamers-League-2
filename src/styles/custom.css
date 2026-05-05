@@ -142,3 +142,26 @@ html {
   image-rendering: pixelated;
 }
 
+/* LoadingScreen: fade-in for rotating Pokémon / messages */
+@keyframes pokemon-loading-fade {
+  0%   { opacity: 0; transform: scale(0.8) translateY(6px); }
+  40%  { opacity: 1; transform: scale(1) translateY(0); }
+  80%  { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(0.9) translateY(-4px); }
+}
+
+.pokemon-loading-fade {
+  animation: pokemon-loading-fade 1.8s ease forwards;
+}
+
+/* LoadingScreen: animated shimmer bar */
+@keyframes loading-bar-scroll {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.loading-bar-fill {
+  width: 60%;
+  animation: loading-bar-scroll 1.8s ease-in-out infinite;
+}
+
