@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter } from 'react-router-dom';
 import { RootLayout } from './components/RootLayout';
 import { Home } from './pages/Home';
 import { Evento } from './pages/Evento';
@@ -11,14 +11,14 @@ import { Cementerio } from './pages/Cementerio';
 export const router = createBrowserRouter([
   {
     path: '/',
-    Component: RootLayout,
+    element: <RootLayout />,
     children: [
-      { index: true, Component: Home },
-      { path: 'evento', Component: Evento },
-      { path: 'participantes', Component: Participantes },
-      { path: 'guia', Component: Guia },
-      { path: 'utilidades', Component: Utilidades },
-      { path: 'cementerio', Component: Cementerio },
+      { index: true, element: <Home /> },
+      { path: 'evento', element: <Evento /> },
+      { path: 'participantes', element: <Participantes /> },
+      { path: 'guia', element: <Guia /> },
+      { path: 'utilidades', element: <Utilidades /> },
+      { path: 'cementerio', element: <Cementerio /> },
 
     ],
   },

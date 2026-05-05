@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import logo from '../../imports/Recurso_3.png';
 
@@ -31,11 +31,10 @@ export function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`font-['Nunito'] text-sm sm:text-base transition-colors ${
-                  location.pathname === link.to
+                className={`font-['Nunito'] text-sm sm:text-base transition-colors ${location.pathname === link.to
                     ? 'text-[#fbbf24]'
                     : 'text-gray-300 hover:text-white'
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -61,11 +60,10 @@ export function Navbar() {
               key={link.to}
               to={link.to}
               onClick={() => setMenuOpen(false)}
-              className={`font-['Nunito'] text-base px-3 py-2.5 rounded-lg transition-colors ${
-                location.pathname === link.to
+              className={`font-['Nunito'] text-base px-3 py-2.5 rounded-lg transition-colors ${location.pathname === link.to
                   ? 'text-[#fbbf24] bg-[#fbbf24]/10'
                   : 'text-gray-300 hover:text-white hover:bg-white/5'
-              }`}
+                }`}
             >
               {link.label}
             </Link>
